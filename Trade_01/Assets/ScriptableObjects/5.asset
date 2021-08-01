@@ -15,6 +15,6 @@ MonoBehaviour:
   itemId: 2
   starValue: 3
   numOfItem: 0
-  itemPrefab: {fileID: 919132149155446097, guid: 9320bb212c2b04b4d8ad6943a6535285,
+  itemPrefab: {fileID: 715927111014503625, guid: 21b930a8fbae3433e968069b1d737ac8,
     type: 3}
   imgSprite: {fileID: 21300000, guid: 1f1be61dee21b487da24cddd8506524b, type: 3}

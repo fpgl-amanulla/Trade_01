@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class Trader : TradeSystem
 {
@@ -43,7 +43,7 @@ public class Trader : TradeSystem
             int playerItemValue = player.GetItemValue();
             int traderItemValue = GetItemValue();
 
-            if (traderItemValue >= playerItemValue - 1)
+            if (traderItemValue - 2 >= playerItemValue)
             {
                 //Want More
 
@@ -77,7 +77,16 @@ public class Trader : TradeSystem
         int playerItemValue = player.GetItemValue();
         int traderItemValue = GetItemValue();
 
-        Debug.Log(playerItemValue + "    " + traderItemValue);
+        //Debug.Log(playerItemValue + "    " + traderItemValue);
+
+        int givenItem = givenTradeItems.Count;
+        if (givenItem > 1)
+        {
+            txtTraderPopUp.text = "Trade Successful";
+
+            StartCoroutine(ReloadScene());
+            return;
+        }
 
         if (traderItemValue - 2 >= playerItemValue)
         {
@@ -86,18 +95,20 @@ public class Trader : TradeSystem
         else
         {
             txtTraderPopUp.text = "Trade Successful";
+
+            StartCoroutine(ReloadScene());
         }
     }
     public void PlayerWantMoreCallBack()
     {
         int playerItemValue = player.GetItemValue();
         int traderItemValue = GetItemValue();
-
         int givenItem = givenTradeItems.Count;
+        //Debug.Log(playerItemValue + "    " + traderItemValue);
 
         if (traderItemValue - 2 >= playerItemValue)
         {
-            txtTraderPopUp.text = "Trade???";
+            txtTraderPopUp.text = "Not Interested!!!";
         }
         else
         {
@@ -110,11 +121,20 @@ public class Trader : TradeSystem
     public void PlayerDenayCallBack()
     {
         txtTraderPopUp.text = "Trade Cancelled";
+        StartCoroutine(ReloadScene());
     }
 
     private void GiveItem(int givenItem)
     {
-        InstantiateItem(givenItem);
+        InstantiateItem(givenItem, this.transform);
         panelTradeScrollView.SetAllItemInteractableStatus(true);
+    }
+    [Space(10)]
+    public GameObject imgClickBlocker;
+    IEnumerator ReloadScene()
+    {
+        imgClickBlocker.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

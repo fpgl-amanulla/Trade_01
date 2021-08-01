@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TradeSystem : MonoBehaviour
 {
@@ -16,18 +17,28 @@ public class TradeSystem : MonoBehaviour
     public List<TradeItemSO> givenTradeItems = new List<TradeItemSO>();
     public List<GameObject> givenTradeItemsGameobject = new List<GameObject>();
 
-    public void InstantiateItem(int tradeItemIndex)
+    public void InstantiateItem(int tradeItemIndex, Transform _transform)
     {
         GameObject tradeItemPrefab = tradeItems[tradeItemIndex].itemPrefab;
         Transform insTransform = tradeItemTransform[givenTradeItems.Count];
-        GameObject item = Instantiate(tradeItemPrefab, insTransform.position, insTransform.rotation, insTransform);
+        GameObject item = Instantiate(tradeItemPrefab, _transform.position, insTransform.rotation, insTransform);
+        AnimSeq(insTransform, item);
         givenTradeItemsGameobject.Add(item);
         givenTradeItems.Add(tradeItems[tradeItemIndex]);
     }
-    public void InstantiateItem(TradeItemSO tradeItem)
+
+    private void AnimSeq(Transform insTransform, GameObject item)
+    {
+        item.transform.localScale = Vector3.one * .2f;
+        item.transform.DOScale(Vector3.one, 1.25f);
+        item.transform.DOJump(insTransform.position, 1, 1, 1.25f).SetEase(Ease.OutExpo);
+    }
+
+    public void InstantiateItem(TradeItemSO tradeItem, Transform _transform)
     {
         Transform insTransform = tradeItemTransform[givenTradeItems.Count];
-        GameObject item = Instantiate(tradeItem.itemPrefab, insTransform.position, insTransform.rotation, insTransform);
+        GameObject item = Instantiate(tradeItem.itemPrefab, _transform.position, insTransform.rotation, insTransform);
+        AnimSeq(insTransform, item);
         givenTradeItemsGameobject.Add(item);
         givenTradeItems.Add(tradeItem);
     }

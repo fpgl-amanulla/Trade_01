@@ -15,6 +15,9 @@ ModelImporter:
   - first:
       74: 7887265114725367321
     second: atk
+  - first:
+      74: 386021504157079522
+    second: wlk (1)
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -54,11 +57,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: run
-      takeName: run
+      name: wlk (1)
+      takeName: wlk
       internalID: 0
-      firstFrame: 0
-      lastFrame: 16
+      firstFrame: 51
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -123,7 +126,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -139,7 +142,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 51
     - serializedVersion: 16
       name: atk
       takeName: atk

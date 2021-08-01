@@ -33,7 +33,7 @@ public class TradeItem : MonoBehaviour
 
     private void ItemClickCallBack()
     {
-        player.InstantiateItem(tradeItemSO);
+        player.InstantiateItem(tradeItemSO, player.transform);
         panelTradeScrollView.trader.TraderTurn();
 
         panelTradeScrollView.SetAllItemInteractableStatus(false);
