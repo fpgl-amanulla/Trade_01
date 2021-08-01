@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5271247328161442228}
   - component: {fileID: 5271247328161442229}
   m_Layer: 5
-  m_Name: Product Scroll View
+  m_Name: Trade Item Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
