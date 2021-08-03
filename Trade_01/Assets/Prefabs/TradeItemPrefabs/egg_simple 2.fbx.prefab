@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2484338918920445831}
   - component: {fileID: 404992310732827469}
   m_Layer: 0
-  m_Name: egg_simple2.fbx
+  m_Name: egg_simple 2.fbx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

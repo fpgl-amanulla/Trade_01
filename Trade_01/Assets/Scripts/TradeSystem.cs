@@ -13,6 +13,9 @@ public class TradeSystem : MonoBehaviour
     [Space(10)]
     public List<Transform> tradeItemTransform = new List<Transform>();
 
+    [Space(10)]
+    public float itemScaleFactor = .75f;
+
     [HideInInspector]
     public List<TradeItemSO> givenTradeItems = new List<TradeItemSO>();
     public List<GameObject> givenTradeItemsGameobject = new List<GameObject>();
@@ -30,7 +33,7 @@ public class TradeSystem : MonoBehaviour
     private void AnimSeq(Transform insTransform, GameObject item)
     {
         item.transform.localScale = Vector3.one * .2f;
-        item.transform.DOScale(Vector3.one, 1.25f);
+        item.transform.DOScale(Vector3.one * itemScaleFactor, 1.25f);
         item.transform.DOJump(insTransform.position, 1, 1, 1.25f).SetEase(Ease.OutExpo);
     }
 
