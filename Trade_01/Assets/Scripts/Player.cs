@@ -36,4 +36,11 @@ public class Player : TradeSystem
     {
         trader.PlayerTradeCallBack();
     }
+
+    public void PlayerButtonInteractiveStatus(bool action)
+    {
+        btnTrade.interactable = action;
+        btnWantMore.interactable = action;
+        btnDenay.interactable = action;
+    }
 }

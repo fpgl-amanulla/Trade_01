@@ -10,4 +10,9 @@ public class TradeItemSO : ScriptableObject
     public int numOfItem;
     public GameObject itemPrefab;
     public Sprite imgSprite;
+
+    public void SetNumOfItem(int value)
+    {
+        numOfItem = value;
+    }
 }

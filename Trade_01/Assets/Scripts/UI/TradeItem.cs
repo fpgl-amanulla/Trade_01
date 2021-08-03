@@ -26,6 +26,7 @@ public class TradeItem : MonoBehaviour
         panelTradeScrollView = _panelTradeScrollView;
         player = _panelTradeScrollView.player;
         tradeItemSO = player.tradeItems[index];
+        tradeItemSO.SetNumOfItem(1);
 
         imgIcon.sprite = tradeItemSO.imgSprite;
         txtNumOfItem.text = tradeItemSO.numOfItem.ToString();
@@ -33,8 +34,14 @@ public class TradeItem : MonoBehaviour
 
     private void ItemClickCallBack()
     {
+        if (panelTradeScrollView.txtStartInstruction.gameObject.activeSelf)
+            panelTradeScrollView.txtStartInstruction.gameObject.SetActive(false);
+
         player.InstantiateItem(tradeItemSO, player.transform);
         panelTradeScrollView.trader.TraderTurn();
+        tradeItemSO.numOfItem--;
+        txtNumOfItem.text = tradeItemSO.numOfItem.ToString();
+        if (tradeItemSO.numOfItem < 1) btnItem.interactable = false;
 
         panelTradeScrollView.SetAllItemInteractableStatus(false);
     }

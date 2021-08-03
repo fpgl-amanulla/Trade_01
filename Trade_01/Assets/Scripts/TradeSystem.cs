@@ -53,4 +53,18 @@ public class TradeSystem : MonoBehaviour
         return value;
     }
 
+    public void OnTradeComplate(Transform _transform)
+    {
+        StartCoroutine(OnTradeComplateAnim(_transform));
+    }
+
+    private IEnumerator OnTradeComplateAnim(Transform _transform)
+    {
+        for (int i = 0; i < givenTradeItems.Count; i++)
+        {
+            yield return new WaitForSeconds(.5f);
+            givenTradeItemsGameobject[i].transform.DOScale(Vector3.zero, 1.25f);
+            givenTradeItemsGameobject[i].transform.DOJump(_transform.position, 1, 1, 1.25f).SetEase(Ease.OutExpo);
+        }
+    }
 }

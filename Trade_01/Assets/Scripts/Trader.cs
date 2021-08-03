@@ -5,6 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Trader : TradeSystem
 {
@@ -14,11 +15,6 @@ public class Trader : TradeSystem
     [Space(10)]
     public GameObject traderPopUp;
     public TextMeshProUGUI txtTraderPopUp;
-
-    public void Start()
-    {
-
-    }
 
     public void TraderTurn()
     {
@@ -84,7 +80,7 @@ public class Trader : TradeSystem
         {
             txtTraderPopUp.text = "Trade Successful";
 
-            StartCoroutine(ReloadScene());
+            StartCoroutine(ReloadScene(true));
             return;
         }
 
@@ -96,7 +92,7 @@ public class Trader : TradeSystem
         {
             txtTraderPopUp.text = "Trade Successful";
 
-            StartCoroutine(ReloadScene());
+            StartCoroutine(ReloadScene(true));
         }
     }
     public void PlayerWantMoreCallBack()
@@ -121,7 +117,7 @@ public class Trader : TradeSystem
     public void PlayerDenayCallBack()
     {
         txtTraderPopUp.text = "Trade Cancelled";
-        StartCoroutine(ReloadScene());
+        StartCoroutine(ReloadScene(false));
     }
 
     private void GiveItem(int givenItem)
@@ -131,10 +127,34 @@ public class Trader : TradeSystem
     }
     [Space(10)]
     public GameObject imgClickBlocker;
-    IEnumerator ReloadScene()
+    public GameObject panelTradeComplete;
+    public TextMeshProUGUI txtTradeStatus;
+    IEnumerator ReloadScene(bool tradeStatus)
     {
         imgClickBlocker.SetActive(true);
+        if (tradeStatus)
+        {
+            OnTradeComplate(player.transform);
+            player.OnTradeComplate(this.transform);
+        }
+        else
+        {
+            OnTradeComplate(this.transform);
+            player.OnTradeComplate(player.transform);
+        }
+
+        yield return new WaitForSeconds(3.0f);
+        panelTradeComplete.SetActive(true);
+        txtTradeStatus.text = tradeStatus ? "Trade Successful" : "Trade Cancelled";
+        CanvasGroup canvasGroup = panelTradeComplete.GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0;
+        DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 1.0f);
+
         yield return new WaitForSeconds(2.0f);
+
+    }
+    public void ReloadSceneCallBack()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
