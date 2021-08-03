@@ -9,6 +9,11 @@ using DG.Tweening;
 
 public class Trader : TradeSystem
 {
+    private const string AnimKeyDance01 = "Dance01";
+    private const string AnimKeyDenay01 = "Denay01";
+    private const string AnimKeyNo = "No";
+    private const string AnimKeyRaiseHand = "RaiseHand";
+
     public PanelTradeScrollView panelTradeScrollView;
     public Player player;
 
@@ -53,6 +58,8 @@ public class Trader : TradeSystem
                 {
                     traderPopUp.SetActive(true);
                     txtTraderPopUp.text = "Want More";
+
+                    PlayAnimTrigger(AnimKeyRaiseHand);
                 }
             }
             else
@@ -87,6 +94,7 @@ public class Trader : TradeSystem
         if (traderItemValue - 2 >= playerItemValue)
         {
             txtTraderPopUp.text = "Want More";
+            PlayAnimTrigger(AnimKeyRaiseHand);
         }
         else
         {
@@ -105,6 +113,7 @@ public class Trader : TradeSystem
         if (traderItemValue - 2 >= playerItemValue)
         {
             txtTraderPopUp.text = "Not Interested!!!";
+            PlayAnimTrigger(AnimKeyNo);
         }
         else
         {
@@ -134,13 +143,20 @@ public class Trader : TradeSystem
         imgClickBlocker.SetActive(true);
         if (tradeStatus)
         {
+
             OnTradeComplate(player.transform);
             player.OnTradeComplate(this.transform);
+
+            PlayAnimBool(AnimKeyDance01, true);
+            player.PlayAnimBool(AnimKeyDance01, true);
         }
         else
         {
             OnTradeComplate(this.transform);
             player.OnTradeComplate(player.transform);
+
+            PlayAnimBool(AnimKeyDenay01, true);
+            player.PlayAnimBool(AnimKeyDenay01, true);
         }
 
         yield return new WaitForSeconds(3.0f);

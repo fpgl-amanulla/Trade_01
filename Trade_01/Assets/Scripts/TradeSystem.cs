@@ -8,6 +8,9 @@ using DG.Tweening;
 
 public class TradeSystem : MonoBehaviour
 {
+    public Animator animator;
+
+    [Space(10)]
     public List<TradeItemSO> tradeItems = new List<TradeItemSO>();
 
     [Space(10)]
@@ -69,5 +72,14 @@ public class TradeSystem : MonoBehaviour
             givenTradeItemsGameobject[i].transform.DOScale(Vector3.zero, 1.25f);
             givenTradeItemsGameobject[i].transform.DOJump(_transform.position, 1, 1, 1.25f).SetEase(Ease.OutExpo);
         }
+    }
+
+    public void PlayAnimBool(string key, bool action)
+    {
+        animator.SetBool(key, action);
+    }
+    public void PlayAnimTrigger(string key)
+    {
+        animator.SetTrigger(key);
     }
 }
