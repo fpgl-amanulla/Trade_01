@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject _canvas;
+
+
+    public List<TradeItemSO> allTradeItemList = new List<TradeItemSO>();
+
     public void Start()
     {
         player.GetComponent<Player>().PlayerButtonInteractiveStatus(false);
