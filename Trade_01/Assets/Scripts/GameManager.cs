@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         playerAnim.SetBool("Walk", true);
         traderAnim.SetBool("Walk", true);
 
-        player.DOMove(new Vector3(-4, 0, 1.5f), 2.0f).OnComplete(() =>
+        player.DOMove(new Vector3(-3.80f, 0, 2f), 2.0f).OnComplete(() =>
         {
             playerAnim.SetBool("Walk", false);
         });

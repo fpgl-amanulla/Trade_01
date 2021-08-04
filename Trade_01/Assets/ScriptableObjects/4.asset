@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 2
   starValue: 3
-  numOfItem: 0
+  numOfItem: 1
   itemPrefab: {fileID: 329968221475929063, guid: a90d4b2807962448eb7d5677125eb829,
     type: 3}
   imgSprite: {fileID: 21300000, guid: d10bf685e161b42968af7ac71fe7a22a, type: 3}

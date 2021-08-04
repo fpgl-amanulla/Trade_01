@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using DG.Tweening;
 
 public class PanelTradeScrollView : MonoBehaviour
@@ -15,7 +14,7 @@ public class PanelTradeScrollView : MonoBehaviour
     public TradeItem tradeItemPrefab;
 
     [Space(10)]
-    public TextMeshProUGUI txtStartInstruction;
+    public Text txtStartInstruction;
 
     private List<GameObject> tradeItem = new List<GameObject>();
     public void Start()
@@ -38,10 +37,13 @@ public class PanelTradeScrollView : MonoBehaviour
 
     public void SetAllItemInteractableStatus(bool status)
     {
-        for (int i = 0; i < tradeItem.Count; i++)
+        if (player.givenTradeItems.Count < player.tradeItemTransform.Count - 1)
         {
-            if (player.tradeItems[i].numOfItem > 0)
-                tradeItem[i].GetComponent<Button>().interactable = status;
+            for (int i = 0; i < tradeItem.Count; i++)
+            {
+                if (player.tradeItems[i].numOfItem > 0)
+                    tradeItem[i].GetComponent<Button>().interactable = status;
+            }
         }
         player.PlayerButtonInteractiveStatus(status);
     }

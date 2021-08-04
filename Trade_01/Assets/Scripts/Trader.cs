@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Trader : TradeSystem
 {
@@ -19,7 +19,7 @@ public class Trader : TradeSystem
 
     [Space(10)]
     public GameObject traderPopUp;
-    public TextMeshProUGUI txtTraderPopUp;
+    public Text txtTraderPopUp;
 
     public void TraderTurn()
     {
@@ -31,36 +31,26 @@ public class Trader : TradeSystem
         yield return new WaitForSeconds(1.0f);
         int givenItem = givenTradeItems.Count;
 
-        if (givenItem == 0)
+        if (givenItem < 2)
         {
             //  0 -> Give one item
             GiveItem(givenItem);
             traderPopUp.SetActive(true);
-            txtTraderPopUp.text = "Trade???";
+            txtTraderPopUp.text = "Want More";
         }
         else
         {
             //  >0 -> Check for trade/Want more/denay
-            int playerItemValue = player.GetItemValue();
-            int traderItemValue = GetItemValue();
+            //int playerItemValue = player.GetItemValue();
+            //int traderItemValue = GetItemValue();
 
-            if (traderItemValue - 2 >= playerItemValue)
+            int value = Random.Range(0, 10);
+            if (value % 2 == 0)
             {
-                //Want More
+                traderPopUp.SetActive(true);
+                txtTraderPopUp.text = "Want More";
+                PlayAnimTrigger(AnimKeyRaiseHand);
 
-                int value = Random.Range(0, 10);
-                if (value % 2 == 0)
-                {
-                    traderPopUp.SetActive(true);
-                    txtTraderPopUp.text = "Trade??";
-                }
-                else
-                {
-                    traderPopUp.SetActive(true);
-                    txtTraderPopUp.text = "Want More";
-
-                    PlayAnimTrigger(AnimKeyRaiseHand);
-                }
             }
             else
             {
@@ -83,26 +73,23 @@ public class Trader : TradeSystem
         //Debug.Log(playerItemValue + "    " + traderItemValue);
 
         int givenItem = givenTradeItems.Count;
-        if (givenItem > 1)
+        int value = Random.Range(0, 10);
+        if (value % 2 == 0 || givenItem == tradeItems.Count - 1)
         {
             txtTraderPopUp.text = "Trade Successful";
 
             StartCoroutine(ReloadScene(true));
-            return;
-        }
-
-        if (traderItemValue - 2 >= playerItemValue)
-        {
-            txtTraderPopUp.text = "Want More";
-            PlayAnimTrigger(AnimKeyRaiseHand);
         }
         else
         {
-            txtTraderPopUp.text = "Trade Successful";
-
-            StartCoroutine(ReloadScene(true));
+            if (traderItemValue >= playerItemValue)
+            {
+                txtTraderPopUp.text = "Want More";
+                PlayAnimTrigger(AnimKeyRaiseHand);
+            }
         }
     }
+
     public void PlayerWantMoreCallBack()
     {
         int playerItemValue = player.GetItemValue();
@@ -110,16 +97,17 @@ public class Trader : TradeSystem
         int givenItem = givenTradeItems.Count;
         //Debug.Log(playerItemValue + "    " + traderItemValue);
 
-        if (traderItemValue - 2 >= playerItemValue)
-        {
-            txtTraderPopUp.text = "Not Interested!!!";
-            PlayAnimTrigger(AnimKeyNo);
-        }
-        else
+        int value = Random.Range(0, 10);
+        if (value % 2 == 0)
         {
             GiveItem(givenItem);
             traderPopUp.SetActive(true);
             txtTraderPopUp.text = "Trade???";
+        }
+        else
+        {
+            txtTraderPopUp.text = "Not Interested!!!";
+            PlayAnimTrigger(AnimKeyNo);
         }
 
     }
@@ -131,13 +119,21 @@ public class Trader : TradeSystem
 
     private void GiveItem(int givenItem)
     {
-        InstantiateItem(givenItem, this.transform);
+        if (givenItem < tradeItemTransform.Count - 1)
+        {
+            InstantiateItem(givenItem, this.transform);
+        }
+        else
+        {
+            txtTraderPopUp.text = "Want More";
+            PlayAnimTrigger(AnimKeyRaiseHand);
+        }
         panelTradeScrollView.SetAllItemInteractableStatus(true);
     }
     [Space(10)]
     public GameObject imgClickBlocker;
     public GameObject panelTradeComplete;
-    public TextMeshProUGUI txtTradeStatus;
+    public Text txtTradeStatus;
     IEnumerator ReloadScene(bool tradeStatus)
     {
         imgClickBlocker.SetActive(true);
