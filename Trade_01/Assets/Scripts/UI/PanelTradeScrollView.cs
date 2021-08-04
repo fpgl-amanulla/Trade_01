@@ -15,6 +15,11 @@ public class PanelTradeScrollView : MonoBehaviour
 
     [Space(10)]
     public Text txtStartInstruction;
+    [Space(10)]
+    public GameObject divider;
+
+    [Space(10)]
+    public GameObject firstTutorialHand;
 
     private List<GameObject> tradeItem = new List<GameObject>();
     public void Start()
@@ -37,14 +42,26 @@ public class PanelTradeScrollView : MonoBehaviour
 
     public void SetAllItemInteractableStatus(bool status)
     {
+        StartCoroutine(IenumSetAllItemInteractableStatus(status));
+    }
+    int count = 0;
+    IEnumerator IenumSetAllItemInteractableStatus(bool status)
+    {
+        yield return new WaitForSeconds(2.0f);
         if (player.givenTradeItems.Count < player.tradeItemTransform.Count - 1)
         {
+            count = 0;
             for (int i = 0; i < tradeItem.Count; i++)
             {
                 if (player.tradeItems[i].numOfItem > 0)
+                {
+                    count++;
                     tradeItem[i].GetComponent<Button>().interactable = status;
+                    tradeItem[i].GetComponent<TradeItem>().handAnim.SetActive(true);
+                }
             }
         }
-        player.PlayerButtonInteractiveStatus(status);
+        if (count == 0)
+            player.PlayerButtonInteractiveStatus(status);
     }
 }

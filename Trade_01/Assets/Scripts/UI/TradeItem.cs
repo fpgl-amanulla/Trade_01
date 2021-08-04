@@ -3,24 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class TradeItem : MonoBehaviour
 {
     public Image imgIcon;
-    public TextMeshProUGUI txtNumOfItem;
+    public Text txtNumOfItem;
 
     public Button btnItem;
+    public GameObject handAnim;
 
     private PanelTradeScrollView panelTradeScrollView;
     private TradeItemSO tradeItemSO;
     private Player player;
 
+    int clickCount = 0;
+
     public void Start()
     {
         btnItem.onClick.AddListener(ItemClickCallBack);
     }
-
     public void AssignValues(PanelTradeScrollView _panelTradeScrollView, int index)
     {
         panelTradeScrollView = _panelTradeScrollView;
@@ -35,7 +36,12 @@ public class TradeItem : MonoBehaviour
     private void ItemClickCallBack()
     {
         if (panelTradeScrollView.txtStartInstruction.gameObject.activeSelf)
+        {
             panelTradeScrollView.txtStartInstruction.gameObject.SetActive(false);
+            panelTradeScrollView.divider.gameObject.SetActive(true);
+            panelTradeScrollView.firstTutorialHand.SetActive(false);
+        }
+        handAnim.SetActive(false);
 
         player.InstantiateItem(tradeItemSO, player.transform);
         panelTradeScrollView.trader.TraderTurn();
@@ -44,5 +50,6 @@ public class TradeItem : MonoBehaviour
         if (tradeItemSO.numOfItem < 1) btnItem.interactable = false;
 
         panelTradeScrollView.SetAllItemInteractableStatus(false);
+
     }
 }

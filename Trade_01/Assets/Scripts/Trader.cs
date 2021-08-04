@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Linq;
+using Random = UnityEngine.Random;
 
 public class Trader : TradeSystem
 {
@@ -20,6 +21,12 @@ public class Trader : TradeSystem
     [Space(10)]
     public GameObject traderPopUp;
     public Text txtTraderPopUp;
+
+    public void Start()
+    {
+        var rand = new System.Random();
+        tradeItems = tradeItems.OrderBy(item => rand.Next()).ToList();
+    }
 
     public void TraderTurn()
     {
@@ -44,7 +51,7 @@ public class Trader : TradeSystem
             //int playerItemValue = player.GetItemValue();
             //int traderItemValue = GetItemValue();
 
-            int value = Random.Range(0, 10);
+            int value = UnityEngine.Random.Range(0, 10);
             if (value % 2 == 0)
             {
                 traderPopUp.SetActive(true);
@@ -122,6 +129,7 @@ public class Trader : TradeSystem
         if (givenItem < tradeItemTransform.Count - 1)
         {
             InstantiateItem(givenItem, this.transform);
+            PlayAnimTrigger(AnimKeyRaiseHand);
         }
         else
         {
