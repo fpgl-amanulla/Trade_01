@@ -166,13 +166,23 @@
                 "default": {
                     "halfPrecision": true
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "halfPrecision": true,
+                        "name": "Assets/Mixamo/"
+                    }
+                ]
             },
             "animations": {
                 "default": {
                     "halfPrecision": true
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "halfPrecision": true,
+                        "name": "Assets/Mixamo/"
+                    }
+                ]
             }
         }
     }

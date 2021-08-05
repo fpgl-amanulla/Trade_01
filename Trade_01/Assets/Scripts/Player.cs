@@ -39,19 +39,19 @@ public class Player : TradeSystem
     {
         iswantMoreClicked = true;
         firstHandTutorial.SetActive(false);
+        PlayerButtonsAnim(false);
+        StartCoroutine(IenumWantmore());
+        StartCoroutine(trader.PlayerWantMoreCallBack());
+    }
+
+    public IEnumerator IenumWantmore()
+    {
+        yield return new WaitForSeconds(3.0f);
+        PlayerButtonsAnim(true);
+        firstHandTutorial.SetActive(true);
         btnWantMore.gameObject.SetActive(false);
         btnDenay.gameObject.SetActive(true);
         btnTrade.gameObject.SetActive(true);
-        PlayerButtonsAnim(false);
-        StartCoroutine(IenumWantmore());
-        trader.PlayerWantMoreCallBack();
-    }
-
-    IEnumerator IenumWantmore()
-    {
-        yield return new WaitForSeconds(2.0f);
-        PlayerButtonsAnim(true);
-        firstHandTutorial.SetActive(true);
 
     }
 
@@ -82,7 +82,7 @@ public class Player : TradeSystem
         }
         else
         {
-            playerButtons.transform.DOMoveY(-130, 1.0f).SetEase(Ease.InFlash).OnComplete(() => { playerButtons.SetActive(false); });
+            playerButtons.transform.DOMoveY(-130, .5f).SetEase(Ease.InFlash).OnComplete(() => { playerButtons.SetActive(false); });
         }
     }
 

@@ -16,6 +16,7 @@ public class Trader : TradeSystem
     private const string AnimKeyRaiseHand = "RaiseHand";
 
     public PanelTradeScrollView panelTradeScrollView;
+    public CameraController cameraController;
     public Player player;
 
     [Space(10)]
@@ -35,6 +36,9 @@ public class Trader : TradeSystem
 
     private IEnumerator TraderChoice()
     {
+        cameraController.FocusTrader();
+        yield return new WaitForSeconds(1.0f);
+
         yield return new WaitForSeconds(2.0f);
         int givenItem = givenTradeItems.Count;
 
@@ -71,7 +75,6 @@ public class Trader : TradeSystem
             }
 
         }
-        panelTradeScrollView.SetAllItemInteractableStatus(true);
     }
 
     public void PlayerTradeCallBack()
@@ -99,7 +102,7 @@ public class Trader : TradeSystem
         }
     }
 
-    public void PlayerWantMoreCallBack()
+    public IEnumerator PlayerWantMoreCallBack()
     {
         int playerItemValue = player.GetItemValue();
         int traderItemValue = GetItemValue();
@@ -115,8 +118,15 @@ public class Trader : TradeSystem
         }
         else
         {
-            txtTraderPopUp.text = "Not Interested!!!";
+            cameraController.FocusTrader();
+            yield return new WaitForSeconds(1.0f);
+            txtTraderPopUp.text = "Not Interested!!!\n Trade???";
             PlayAnimTrigger(AnimKeyNo);
+            yield return new WaitForSeconds(2.0f);
+
+            cameraController.ResetFocusTrader();
+            yield return new WaitForSeconds(1.0f);
+            StartCoroutine(player.IenumWantmore());
         }
 
     }
@@ -146,8 +156,17 @@ public class Trader : TradeSystem
             txtTraderPopUp.text = "Want More";
             PlayAnimTrigger(AnimKeyRaiseHand);
         }
-        panelTradeScrollView.SetAllItemInteractableStatus(true);
+
+        StartCoroutine(ResetTraderFocus());
     }
+
+    IEnumerator ResetTraderFocus()
+    {
+        yield return new WaitForSeconds(1.5f);
+        cameraController.ResetFocusTrader();
+        panelTradeScrollView.SetAllItemInteractableStatus(true, 1.0f);
+    }
+
     [Space(10)]
     public GameObject imgClickBlocker;
     public GameObject panelTradeComplete;
