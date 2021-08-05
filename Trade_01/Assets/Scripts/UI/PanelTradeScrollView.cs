@@ -81,11 +81,11 @@ public class PanelTradeScrollView : MonoBehaviour
         if (show)
         {
             productScrollView.SetActive(true);
-            productScrollView.transform.DOMoveY(15, 1.0f).SetEase(Ease.OutBounce);
+            productScrollView.transform.DOMoveY(15, 1.0f);
         }
         else
         {
-            productScrollView.transform.DOMoveY(-400, .5f).SetEase(Ease.OutFlash).OnComplete(() => { productScrollView.SetActive(false); });
+            productScrollView.transform.DOMoveY(-400, .5f).OnComplete(() => { productScrollView.SetActive(false); });
         }
     }
 }

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             traderAnim.SetBool("Walk", false);
 
             //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 1.0f);
-            productScrollView.transform.DOMoveY(15, 1.0f).SetEase(Ease.OutBounce);
+            productScrollView.transform.DOMoveY(15, 1.0f);
         });
     }
 }

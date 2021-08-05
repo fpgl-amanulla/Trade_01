@@ -73,5 +73,6 @@ public class PanelCTA_UI : MonoBehaviour
 #if !UNITY_EDITOR
         Luna.Unity.Playable.InstallFullGame();
 #endif
+        Luna.Unity.LifeCycle.GameEnded();
     }
 }

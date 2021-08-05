@@ -29,9 +29,9 @@
         "alphabeticalScenesOrder": false,
         "packages": {
             "default": {
-                "applicationName": "",
-                "iosLink": "",
-                "androidLink": "",
+                "applicationName": "Dragon Forest",
+                "iosLink": "https://apps.apple.com/app/lumberjack-girl/id1574073762?mt=8",
+                "androidLink": "https://play.google.com/store/apps/details?id=com.funvai.tapfire",
                 "orientation": "unspecified",
                 "languages": [
                     "en"
@@ -55,7 +55,7 @@
         },
         "preloader": {
             "active": true,
-            "icon": "",
+            "icon": "Assets/CTA_UI/lamber-jack-round-logo.png",
             "background": ""
         },
         "autoInstantiatePrefabs": true,
@@ -118,8 +118,8 @@
         "rules": {
             "texture": {
                 "default": {
-                    "maxWidth": 256,
-                    "maxHeight": 256,
+                    "maxWidth": 128,
+                    "maxHeight": 128,
                     "format": "default",
                     "compression": "none",
                     "quality": 80,
@@ -170,6 +170,14 @@
                     {
                         "halfPrecision": true,
                         "name": "Assets/Mixamo/"
+                    },
+                    {
+                        "halfPrecision": false,
+                        "name": "Assets/Models/"
+                    },
+                    {
+                        "halfPrecision": true,
+                        "name": "Assets/Models_Animation-Controller/"
                     }
                 ]
             },
@@ -181,6 +189,10 @@
                     {
                         "halfPrecision": true,
                         "name": "Assets/Mixamo/"
+                    },
+                    {
+                        "halfPrecision": true,
+                        "name": "Assets/Models/"
                     }
                 ]
             }

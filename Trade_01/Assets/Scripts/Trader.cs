@@ -37,9 +37,8 @@ public class Trader : TradeSystem
     private IEnumerator TraderChoice()
     {
         cameraController.FocusTrader();
-        yield return new WaitForSeconds(1.0f);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         int givenItem = givenTradeItems.Count;
 
         if (givenItem < 2)
@@ -125,7 +124,7 @@ public class Trader : TradeSystem
             yield return new WaitForSeconds(2.0f);
 
             cameraController.ResetFocusTrader();
-            yield return new WaitForSeconds(1.0f);
+            //yield return new WaitForSeconds(1.5f);
             StartCoroutine(player.IenumWantmore());
         }
 
@@ -139,9 +138,7 @@ public class Trader : TradeSystem
 
     private void CTACallBack()
     {
-        Luna.Unity.Playable.InstallFullGame();
-        Luna.Unity.LifeCycle.GameEnded();
-
+        //Luna.Unity.Playable.InstallFullGame();
     }
 
     private void GiveItem(int givenItem)
