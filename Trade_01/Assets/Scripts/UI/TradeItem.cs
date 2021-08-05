@@ -34,7 +34,7 @@ public class TradeItem : MonoBehaviour
 
     private void ItemClickCallBack()
     {
-        panelTradeScrollView.SetAllItemInteractableStatus(false);
+        //panelTradeScrollView.SetAllItemInteractableStatus(false);
 
         if (panelTradeScrollView.txtStartInstruction.gameObject.activeSelf)
         {
@@ -51,11 +51,10 @@ public class TradeItem : MonoBehaviour
         this.gameObject.SetActive(false);
         panelTradeScrollView.tradeItem[2].gameObject.SetActive(true);
 
-
+        panelTradeScrollView.ProductScrollViewAnim(false);
 
         if (player.givenTradeItems.Count > 1)
         {
-            panelTradeScrollView.productScrollView.SetActive(false);
             return;
         }
 

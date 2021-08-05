@@ -12,12 +12,9 @@ public class GameManager : MonoBehaviour
     public Animator traderAnim;
 
 
-    public GameObject _canvas;
+    public GameObject productScrollView;
     public void Start()
     {
-        CanvasGroup canvasGroup = _canvas.GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0;
-
         playerAnim.SetBool("Walk", true);
         traderAnim.SetBool("Walk", true);
 
@@ -29,7 +26,8 @@ public class GameManager : MonoBehaviour
         {
             traderAnim.SetBool("Walk", false);
 
-            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 1.0f);
+            //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 1.0f);
+            productScrollView.transform.DOMoveY(15, 1.0f).SetEase(Ease.OutBounce);
         });
     }
 }

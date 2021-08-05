@@ -50,10 +50,13 @@ public class PanelTradeScrollView : MonoBehaviour
     }
     IEnumerator IenumSetAllItemInteractableStatus(bool status, float waitTime = 0)
     {
+
         yield return new WaitForSeconds(waitTime);
         if (status)
+        {
             firstTutorialHand.SetActive(true);
-        if (player.givenTradeItems.Count < player.tradeItemTransform.Count - 1)
+        }
+        /*if (player.givenTradeItems.Count < player.tradeItemTransform.Count - 1)
         {
             for (int i = 0; i < tradeItem.Count; i++)
             {
@@ -62,12 +65,27 @@ public class PanelTradeScrollView : MonoBehaviour
                     tradeItem[i].GetComponent<Button>().interactable = status;
                 }
             }
-        }
+        }*/
 
         if (trader.givenTradeItems.Count > 1)
         {
             firstTutorialHand.SetActive(false);
             player.PlayerButtonInteractiveStatus(status);
+            yield break;
+        }
+        ProductScrollViewAnim(true);
+    }
+
+    public void ProductScrollViewAnim(bool show)
+    {
+        if (show)
+        {
+            productScrollView.SetActive(true);
+            productScrollView.transform.DOMoveY(15, 1.0f).SetEase(Ease.OutBounce);
+        }
+        else
+        {
+            productScrollView.transform.DOMoveY(-400, 1.0f).SetEase(Ease.OutFlash).OnComplete(() => { productScrollView.SetActive(false); });
         }
     }
 }

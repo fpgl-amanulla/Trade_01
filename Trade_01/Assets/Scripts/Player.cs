@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,23 +31,33 @@ public class Player : TradeSystem
     private void DenayCallBack()
     {
         firstHandTutorial.SetActive(false);
-        playerButtons.SetActive(false);
+        PlayerButtonsAnim(false);
         trader.PlayerDenayCallBack();
     }
 
     private void WantMoreCallBack()
     {
         iswantMoreClicked = true;
+        firstHandTutorial.SetActive(false);
         btnWantMore.gameObject.SetActive(false);
         btnDenay.gameObject.SetActive(true);
         btnTrade.gameObject.SetActive(true);
-        firstHandTutorial.SetActive(true);
+        PlayerButtonsAnim(false);
+        StartCoroutine(IenumWantmore());
         trader.PlayerWantMoreCallBack();
+    }
+
+    IEnumerator IenumWantmore()
+    {
+        yield return new WaitForSeconds(2.0f);
+        PlayerButtonsAnim(true);
+        firstHandTutorial.SetActive(true);
+
     }
 
     private void TradeCallBack()
     {
-        playerButtons.SetActive(false);
+        PlayerButtonsAnim(false);
         trader.PlayerTradeCallBack();
         btnTrade.interactable = false;
         firstHandTutorial.SetActive(false);
@@ -54,9 +65,25 @@ public class Player : TradeSystem
 
     public void PlayerButtonInteractiveStatus(bool action, float waitTime = 0)
     {
+        PlayerButtonsAnim(true);
 
         btnWantMore.gameObject.SetActive(true);
+        btnTrade.gameObject.SetActive(true);
+        firstHandTutorial.SetActive(true);
         //StartCoroutine(BtnInteraction(action, waitTime));
+    }
+
+    public void PlayerButtonsAnim(bool show)
+    {
+        if (show)
+        {
+            playerButtons.SetActive(true);
+            playerButtons.transform.DOMoveY(130, 1.0f).SetEase(Ease.OutBounce);
+        }
+        else
+        {
+            playerButtons.transform.DOMoveY(-130, 1.0f).SetEase(Ease.InFlash).OnComplete(() => { playerButtons.SetActive(false); });
+        }
     }
 
     private IEnumerator BtnInteraction(bool action, float waitTime = 0)
