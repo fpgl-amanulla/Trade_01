@@ -35,7 +35,7 @@ public class Trader : TradeSystem
 
     private IEnumerator TraderChoice()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         int givenItem = givenTradeItems.Count;
 
         if (givenItem < 2)
@@ -43,7 +43,9 @@ public class Trader : TradeSystem
             //  0 -> Give one item
             GiveItem(givenItem);
             traderPopUp.SetActive(true);
-            txtTraderPopUp.text = "Want More";
+
+            givenItem = givenTradeItems.Count;
+            txtTraderPopUp.text = givenItem == 1 ? "Want More" : "Trade???";
         }
         else
         {
@@ -80,11 +82,11 @@ public class Trader : TradeSystem
         //Debug.Log(playerItemValue + "    " + traderItemValue);
 
         int givenItem = givenTradeItems.Count;
-        int value = Random.Range(0, 10);
+        int value = 2;//Random.Range(0, 10);
         if (value % 2 == 0 || givenItem == tradeItems.Count - 1)
         {
             txtTraderPopUp.text = "Trade Successful";
-
+            CTACallBack();
             StartCoroutine(ReloadScene(true));
         }
         else
@@ -104,7 +106,7 @@ public class Trader : TradeSystem
         int givenItem = givenTradeItems.Count;
         //Debug.Log(playerItemValue + "    " + traderItemValue);
 
-        int value = Random.Range(0, 10);
+        int value = 3;// Random.Range(0, 10);
         if (value % 2 == 0)
         {
             GiveItem(givenItem);
@@ -121,7 +123,15 @@ public class Trader : TradeSystem
     public void PlayerDenayCallBack()
     {
         txtTraderPopUp.text = "Trade Cancelled";
+        CTACallBack();
         StartCoroutine(ReloadScene(false));
+    }
+
+    private void CTACallBack()
+    {
+        Luna.Unity.Playable.InstallFullGame();
+        Luna.Unity.LifeCycle.GameEnded();
+
     }
 
     private void GiveItem(int givenItem)

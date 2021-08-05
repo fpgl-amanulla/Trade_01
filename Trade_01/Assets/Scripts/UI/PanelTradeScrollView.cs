@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class PanelTradeScrollView : MonoBehaviour
 {
+    public GameObject productScrollView;
+
     public Player player;
     public Trader trader;
 
@@ -21,7 +23,7 @@ public class PanelTradeScrollView : MonoBehaviour
     [Space(10)]
     public GameObject firstTutorialHand;
 
-    private List<GameObject> tradeItem = new List<GameObject>();
+    public List<GameObject> tradeItem = new List<GameObject>();
     public void Start()
     {
         txtStartInstruction.gameObject.SetActive(true);
@@ -37,31 +39,35 @@ public class PanelTradeScrollView : MonoBehaviour
             TradeItem item = Instantiate(tradeItemPrefab, content);
             tradeItem.Add(item.gameObject);
             item.AssignValues(this, i);
+            if (i > 1)
+                item.gameObject.SetActive(false);
         }
     }
 
-    public void SetAllItemInteractableStatus(bool status)
+    public void SetAllItemInteractableStatus(bool status, float waitTime = 0)
     {
-        StartCoroutine(IenumSetAllItemInteractableStatus(status));
+        StartCoroutine(IenumSetAllItemInteractableStatus(status, waitTime));
     }
-    int count = 0;
-    IEnumerator IenumSetAllItemInteractableStatus(bool status)
+    IEnumerator IenumSetAllItemInteractableStatus(bool status, float waitTime = 0)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(waitTime);
+        if (status)
+            firstTutorialHand.SetActive(true);
         if (player.givenTradeItems.Count < player.tradeItemTransform.Count - 1)
         {
-            count = 0;
             for (int i = 0; i < tradeItem.Count; i++)
             {
                 if (player.tradeItems[i].numOfItem > 0)
                 {
-                    count++;
                     tradeItem[i].GetComponent<Button>().interactable = status;
-                    tradeItem[i].GetComponent<TradeItem>().handAnim.SetActive(true);
                 }
             }
         }
-        if (count == 0)
+
+        if (trader.givenTradeItems.Count > 1)
+        {
+            firstTutorialHand.SetActive(false);
             player.PlayerButtonInteractiveStatus(status);
+        }
     }
 }

@@ -10,7 +10,6 @@ public class TradeItem : MonoBehaviour
     public Text txtNumOfItem;
 
     public Button btnItem;
-    public GameObject handAnim;
 
     private PanelTradeScrollView panelTradeScrollView;
     private TradeItemSO tradeItemSO;
@@ -35,21 +34,30 @@ public class TradeItem : MonoBehaviour
 
     private void ItemClickCallBack()
     {
+        panelTradeScrollView.SetAllItemInteractableStatus(false);
+
         if (panelTradeScrollView.txtStartInstruction.gameObject.activeSelf)
         {
             panelTradeScrollView.txtStartInstruction.gameObject.SetActive(false);
             panelTradeScrollView.divider.gameObject.SetActive(true);
-            panelTradeScrollView.firstTutorialHand.SetActive(false);
         }
-        handAnim.SetActive(false);
+        panelTradeScrollView.firstTutorialHand.SetActive(false);
 
         player.InstantiateItem(tradeItemSO, player.transform);
         panelTradeScrollView.trader.TraderTurn();
         tradeItemSO.numOfItem--;
         txtNumOfItem.text = tradeItemSO.numOfItem.ToString();
-        if (tradeItemSO.numOfItem < 1) btnItem.interactable = false;
+        //if (tradeItemSO.numOfItem < 1) btnItem.interactable = false;
+        this.gameObject.SetActive(false);
+        panelTradeScrollView.tradeItem[2].gameObject.SetActive(true);
 
-        panelTradeScrollView.SetAllItemInteractableStatus(false);
+
+
+        if (player.givenTradeItems.Count > 1)
+        {
+            panelTradeScrollView.productScrollView.SetActive(false);
+            return;
+        }
 
     }
 }

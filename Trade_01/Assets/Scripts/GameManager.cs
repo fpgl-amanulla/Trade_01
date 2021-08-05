@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public GameObject _canvas;
     public void Start()
     {
-        player.GetComponent<Player>().PlayerButtonInteractiveStatus(false);
         CanvasGroup canvasGroup = _canvas.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
 
