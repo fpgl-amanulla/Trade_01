@@ -1,0 +1,12 @@
+script.
+    window.LUNA_PLAYGROUND_OVERRIDES;
+    window.LUNA_PLAYGROUND_BUNDLES;
+
+    window.$environment = {
+        baseUrl: !{ JSON.stringify( base_url ) },
+        resourceConfig: !{ JSON.stringify( config ) },
+        packageConfig: Object.assign( !{ JSON.stringify( package ) }, window.LUNA_PLAYGROUND_PACKAGE_CONFIG || {} ),
+        playerPrefs: !{ JSON.stringify( playerPrefs ) }
+    };
+
+script( id='LUNA_PLAYGROUND_BUNDLES' )

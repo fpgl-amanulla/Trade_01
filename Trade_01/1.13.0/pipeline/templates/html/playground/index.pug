@@ -1,0 +1,17 @@
+extends  ../resources/pug/layout
+
+append config
+    script
+        include touch-emulation.js
+
+block scripts
+    for resource in resources.scripts
+        script( src=resource defer )
+
+block content
+    script
+        include content.js
+
+block runtime
+    script
+        include runtime.js
