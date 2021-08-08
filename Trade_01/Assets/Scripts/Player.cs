@@ -78,11 +78,11 @@ public class Player : TradeSystem
         if (show)
         {
             playerButtons.SetActive(true);
-            playerButtons.transform.DOMoveY(130, 1.0f);
+            playerButtons.GetComponent<RectTransform>().DOAnchorPos3DY(130, 1.0f);
         }
         else
         {
-            playerButtons.transform.DOMoveY(-130, .5f).OnComplete(() => { playerButtons.SetActive(false); });
+            playerButtons.GetComponent<RectTransform>().DOAnchorPos3DY(-130, .5f).OnComplete(() => { playerButtons.SetActive(false); });
         }
     }
 

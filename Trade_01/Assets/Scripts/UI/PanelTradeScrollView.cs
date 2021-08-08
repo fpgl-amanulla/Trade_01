@@ -30,6 +30,29 @@ public class PanelTradeScrollView : MonoBehaviour
         txtStartInstruction.rectTransform.DOScale(Vector3.one * 1.2f, 1.0f).SetLoops(-1, LoopType.Yoyo);
 
         GenerateItem();
+
+        CheckOrientation();
+    }
+
+    private void Update()
+    {
+        CheckOrientation();
+    }
+
+    private void CheckOrientation()
+    {
+        float screenRatio = (Screen.width / Screen.height);
+        if (screenRatio >= 1)
+        {
+            // Landscape Layout
+            productScrollView.transform.localScale = new Vector3(.6f, .5f, 1);
+
+        }
+        else if (screenRatio < 1)
+        {
+            // Portrait Layout
+            productScrollView.transform.localScale = Vector3.one;
+        }
     }
 
     private void GenerateItem()
