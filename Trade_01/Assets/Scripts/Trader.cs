@@ -49,6 +49,9 @@ public class Trader : TradeSystem
 
             givenItem = givenTradeItems.Count;
             txtTraderPopUp.text = givenItem == 1 ? "Want More" : "Trade???";
+
+            if (givenItem != 1) animator.SetBool(AnimKeyDance01, true);
+  
         }
         else
         {
